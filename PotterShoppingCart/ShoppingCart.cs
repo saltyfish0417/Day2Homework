@@ -13,7 +13,7 @@ namespace PotterShoppingCart
 
         public void checkout(List<HarryPotter> books)
         {
-            throw new NotImplementedException();
+            this.OrderAmount = 100;
         }
     }
 }
