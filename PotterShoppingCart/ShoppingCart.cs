@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PotterShoppingCart
 {
@@ -28,7 +29,23 @@ namespace PotterShoppingCart
                     this.OrderAmount = 100 * 2 * 0.95;
                     
                 }
-            }          
+            }
+            else if (books.Count == 3)
+            {
+                int booksgroupcout = books.GroupBy(x => x.Episode).Count();
+                switch (booksgroupcout)
+                {
+                    case 1:
+                        this.OrderAmount = 100 * 3;
+                        break;
+                    case 2:
+                        this.OrderAmount = (100 * 2 * 0.95) + 100;
+                        break;
+                    case 3:
+                        this.OrderAmount = 100 * 3 * 0.90;
+                        break;
+                }
+            }         
         }
     }
 }
