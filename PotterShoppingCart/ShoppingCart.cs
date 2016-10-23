@@ -88,7 +88,9 @@ namespace PotterShoppingCart
                 case 3:
                     return (100 * BooksGroupCount * 0.9) * NumberOfGroups;
                 case 4:
-                    return (100 * BooksGroupCount * 0.8) * NumberOfGroups;            
+                    return (100 * BooksGroupCount * 0.8) * NumberOfGroups;
+                case 5:
+                    return (100 * BooksGroupCount * 0.75) * NumberOfGroups;
                 default:
                     return (100 * BooksGroupCount) * NumberOfGroups;
             }
