@@ -95,5 +95,29 @@ namespace PotterShoppingCartTest
             //assert
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void Buy_1_EP1_And_1_EP2_And_1_EP3_And_1_EP4_And_1_EP5_OrderAmount_Should_Be_375()
+        {
+            //arrange
+            var target = new ShoppingCart();
+            var books = new List<HarryPotter>
+            {
+                new HarryPotter { Episode = "1"},
+                new HarryPotter { Episode = "2"},
+                new HarryPotter { Episode = "3"},
+                new HarryPotter { Episode = "4"},
+                new HarryPotter { Episode = "5"},
+            };
+
+            double expected = 375;
+
+            //act
+            target.checkout(books);
+            double actual = target.OrderAmount;
+
+            //assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
