@@ -45,7 +45,53 @@ namespace PotterShoppingCart
                         this.OrderAmount = 100 * 3 * 0.90;
                         break;
                 }
-            }         
+            } 
+            else
+            {
+                int booksgroupcount = books.GroupBy(x => x.Episode).Count();
+                if (booksgroupcount > 0)
+                {
+                    int SkipNumber = 0;
+                    int MinOfAllBookGroupCount = 0;
+                    int MaxOfAllBookGroupCount = 0;
+                    do
+                    {
+                        var BooksGroup = books
+                                        .GroupBy(g => new { g.Episode })
+                                        .SelectMany(g => g.Skip(SkipNumber))
+                                        .Where(g => g != null)
+                                        .GroupBy(g => g.Episode);
+
+                        booksgroupcount = BooksGroup.Count();
+
+                        MinOfAllBookGroupCount = BooksGroup
+                                                .Select(x => x.Count())
+                                                .Min();
+                        MaxOfAllBookGroupCount = BooksGroup
+                                                .Select(x => x.Count())
+                                                .Max();
+
+                        SkipNumber += MinOfAllBookGroupCount;
+
+                        this.OrderAmount += GetSubtotal(booksgroupcount, MinOfAllBookGroupCount);
+                    } while (MaxOfAllBookGroupCount > MinOfAllBookGroupCount);
+                }
+            }                   
+        }
+
+        private double GetSubtotal(int BooksGroupCount, int NumberOfGroups)
+        {
+            switch (BooksGroupCount)
+            {
+                case 2:
+                    return (100 * BooksGroupCount * 0.95) * NumberOfGroups;
+                case 3:
+                    return (100 * BooksGroupCount * 0.9) * NumberOfGroups;
+                case 4:
+                    return (100 * BooksGroupCount * 0.8) * NumberOfGroups;            
+                default:
+                    return (100 * BooksGroupCount) * NumberOfGroups;
+            }
         }
     }
 }
